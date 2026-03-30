@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1054560648543",
+    "project_id": "poultrysense-9d0d7",
+    "storage_bucket": "poultrysense-9d0d7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054560648543:android:0fcac16b6363aacc4f8aea",
+        "android_client_info": {
+          "package_name": "com.example.poultrysense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054560648543-co7m7qj51cb4mln68n3kntfkj647i3bt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.poultrysense",
+            "certificate_hash": "65b89328fef21a565fb0497cb9528380f12356f9"
+          }
+        },
+        {
+          "client_id": "1054560648543-ka75khjgvrvlit4fad2pjn70c28o46ks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-cypP6Lh4weDLRVndezOw5pneCjuJPU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054560648543-ka75khjgvrvlit4fad2pjn70c28o46ks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
