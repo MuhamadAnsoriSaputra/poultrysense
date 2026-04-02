@@ -41,7 +41,7 @@
             android:layout_width="50dp"
             android:layout_height="4dp"
             android:layout_marginTop="8dp"
-            android:background="#6fff00" />
+            android:background="#04BFA0" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="#6fff00" />
+            android:background="#04BFA0" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,14 +89,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="#6fff00" />
+            android:background="#04BFA0" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="32dp"
-            android:backgroundTint="#6fff00"
+            android:backgroundTint="#04BFA0"
             android:text="Login"
             android:textAllCaps="false"
             android:textStyle="bold"
@@ -121,11 +121,9 @@
             android:textColor="#333333"
             android:textAllCaps="false"
             app:cornerRadius="12dp"
-            app:strokeColor="#6fff00"
+            app:strokeColor="#04BFA0"
             app:icon="@drawable/icongoogle"
-
             app:iconSize="24dp"
-
             app:iconPadding="12dp"
             app:iconGravity="textStart"
             app:iconTint="@android:color/transparent"
@@ -149,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daftar sekarang"
-                android:textColor="#6fff00"
+                android:textColor="#04BFA0"
                 android:textStyle="bold" />
         </LinearLayout>
 

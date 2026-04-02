@@ -11,7 +11,7 @@
         android:id="@+id/headerBackground"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#6fff00"
+        android:background="#04BFA0"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
@@ -156,7 +156,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@android:drawable/ic_menu_today"
-                    app:tint="#6fff00" />
+                    app:tint="#04BFA0" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
