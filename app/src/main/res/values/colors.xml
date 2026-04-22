@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="bg_light_gray">#F8F9FA</color>
+    <color name="teal_primary">#14B8A6</color>
+    <color name="teal_soft_bg">#D1FAE5</color>
+    <color name="teal_soft_card">#B2EBF2</color>
+    <color name="text_black">#111827</color>
+    <color name="text_gray">#6B7280</color>
+    <color name="border_gray">#E5E7EB</color>
 </resources>

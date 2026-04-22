@@ -35,6 +35,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".activities.RiwayatActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.AkunActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
 
