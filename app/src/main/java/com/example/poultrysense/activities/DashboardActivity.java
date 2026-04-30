@@ -2,7 +2,6 @@ package com.example.poultrysense.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -19,9 +18,9 @@ public class DashboardActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private SessionManager sessionManager;
 
-    // Deklarasi View sesuai ID di XML
+    // Deklarasi View
     private ImageView imgProfile;
-    private LinearLayout menuRiwayat;
+    private LinearLayout menuRiwayat, menuNotifikasi; // Tambahan menuNotifikasi
     private ImageView navHome, navNotif, navHistory, navProfile;
 
     @Override
@@ -29,27 +28,45 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        // Inisialisasi Firebase & Session
+        // 1. Inisialisasi Firebase & Session
         mAuth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(this);
 
-        // --- INISIALISASI VIEW ---
+        // 2. Inisialisasi View (ID sesuai XML terbaru)
         imgProfile = findViewById(R.id.img_profile);
         menuRiwayat = findViewById(R.id.menu_riwayat);
+        menuNotifikasi = findViewById(R.id.menu_notifikasi); // ID baru dari XML
+
         navHome = findViewById(R.id.nav_home);
         navNotif = findViewById(R.id.nav_notif);
         navHistory = findViewById(R.id.nav_history);
         navProfile = findViewById(R.id.nav_profile);
 
-        // --- LOGIKA KLIK ASLI ANDA ---
+        // --- LOGIKA NAVIGASI NOTIFIKASI ---
+
+        // Klik pada Icon Notifikasi di Kartu Menu (Tengah)
+        if (menuNotifikasi != null) {
+            menuNotifikasi.setOnClickListener(v -> goToNotification());
+        }
+
+        // Klik pada Icon Notifikasi di Bottom Bar
+        if (navNotif != null) {
+            navNotif.setOnClickListener(v -> goToNotification());
+        }
+
+        // --- LOGIKA NAVIGASI LAINNYA ---
 
         if (navHistory != null) {
             navHistory.setOnClickListener(v -> goToRiwayat());
         }
 
+        if (menuRiwayat != null) {
+            menuRiwayat.setOnClickListener(v -> goToRiwayat());
+        }
+
         if (navHome != null) {
             navHome.setOnClickListener(v -> {
-                Toast.makeText(this, "Beranda", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Anda sedang di Beranda", Toast.LENGTH_SHORT).show();
             });
         }
 
@@ -57,27 +74,33 @@ public class DashboardActivity extends AppCompatActivity {
             imgProfile.setOnClickListener(v -> showProfileMenu());
         }
 
-        if (menuRiwayat != null) {
-            menuRiwayat.setOnClickListener(v -> goToRiwayat());
-        }
-
         if (navProfile != null) {
             navProfile.setOnClickListener(v -> {
                 Intent intent = new Intent(DashboardActivity.this, AkunActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // Navigasi lancar
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
-                overridePendingTransition(0, 0); // Hapus animasi geser
+                overridePendingTransition(0, 0);
             });
         }
     }
 
-    // Fungsi Helper untuk pindah ke Riwayat
+    // --- FUNGSI HELPER NAVIGASI ---
+
+    private void goToNotification() {
+        Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
+
     private void goToRiwayat() {
         Intent intent = new Intent(DashboardActivity.this, RiwayatActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // Navigasi lancar
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-        overridePendingTransition(0, 0); // Hapus animasi geser
+        overridePendingTransition(0, 0);
     }
+
+    // --- FUNGSI MENU PROFIL & AUTH ---
 
     private void showProfileMenu() {
         PopupMenu popup = new PopupMenu(this, imgProfile);
@@ -118,7 +141,7 @@ public class DashboardActivity extends AppCompatActivity {
     private void showDeleteAccountDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Hapus Akun")
-                .setMessage("Tindakan ini permanen dan akun Anda tidak dapat dipulihkan. Yakin?")
+                .setMessage("Tindakan ini permanen. Yakin?")
                 .setPositiveButton("Hapus", (dialog, which) -> {
                     FirebaseUser user = mAuth.getCurrentUser();
                     if (user != null) {

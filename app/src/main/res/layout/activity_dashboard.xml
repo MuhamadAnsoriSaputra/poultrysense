@@ -8,6 +8,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@+id/nav_bottom_bar"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -17,6 +18,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Header Profile -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,9 +49,13 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/profil" />
             </RelativeLayout>
 
+            <!-- Card Menu Utama -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,28 +79,44 @@
                         android:padding="15dp"
                         android:weightSum="4">
 
+                        <!-- Beri Pakan -->
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="45dp" android:layout_height="45dp" android:background="@drawable/bg_bulat_putih" android:padding="10dp" android:src="@drawable/pakan"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Beri pakan" android:textColor="@color/white" android:textSize="10sp" android:layout_marginTop="5dp"/>
                         </LinearLayout>
 
+                        <!-- Jadwal -->
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
                             <ImageView android:layout_width="45dp" android:layout_height="45dp" android:background="@drawable/bg_bulat_putih" android:padding="10dp" android:src="@drawable/alarm" />
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jadwal" android:textColor="@color/white" android:textSize="10sp" android:layout_marginTop="5dp"/>
                         </LinearLayout>
 
+                        <!-- Menu Riwayat -->
                         <LinearLayout
                             android:id="@+id/menu_riwayat"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:orientation="vertical">
                             <ImageView android:layout_width="45dp" android:layout_height="45dp" android:background="@drawable/bg_bulat_putih" android:padding="10dp" android:src="@drawable/histori" />
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Riwayat" android:textColor="@color/white" android:textSize="10sp" android:layout_marginTop="5dp"/>
                         </LinearLayout>
 
-                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                        <!-- Menu Notifikasi -->
+                        <LinearLayout
+                            android:id="@+id/menu_notifikasi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:orientation="vertical">
                             <ImageView android:layout_width="45dp" android:layout_height="45dp" android:background="@drawable/bg_bulat_putih" android:padding="10dp" android:src="@drawable/notif" />
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Notifikasi" android:textColor="@color/white" android:textSize="10sp" android:layout_marginTop="5dp"/>
                         </LinearLayout>
@@ -102,6 +124,7 @@
                 </FrameLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Card Status Pakan -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,6 +153,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Card Jadwal -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,27 +174,57 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <!-- Bottom Navigation Bar -->
     <LinearLayout
         android:id="@+id/nav_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/white"
         android:orientation="horizontal"
+        android:elevation="8dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
             android:id="@+id/nav_home"
-            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/icon_home" app:tint="@color/teal_primary"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_home"
+            app:tint="@color/teal_primary"/>
         <ImageView
             android:id="@+id/nav_notif"
-            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/notif" app:tint="@color/text_gray"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/notif"
+            app:tint="@color/text_gray"/>
         <ImageView
             android:id="@+id/nav_history"
-            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/histori" app:tint="@color/text_gray"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/histori"
+            app:tint="@color/text_gray"/>
         <ImageView
             android:id="@+id/nav_profile"
-            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/orang" app:tint="@color/text_gray"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/orang"
+            app:tint="@color/text_gray"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

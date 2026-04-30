@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bottom_bar"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:text="Notifikasi Terbaru"
+                android:textColor="#2CC1A7"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/tab_semua"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_tab_active"
+                    android:gravity="center"
+                    android:text="Semua"
+                    android:textColor="#2CC1A7"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tab_sistem"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:gravity="center"
+                    android:text="Sistem"
+                    android:textColor="#8E8E93" />
+
+                <TextView
+                    android:id="@+id/tab_promosi"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:gravity="center"
+                    android:text="Promosi"
+                    android:textColor="#8E8E93" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_notifikasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/nav_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView android:id="@+id/nav_home" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/icon_home" app:tint="#8E8E93"/>
+        <ImageView android:id="@+id/nav_notif" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/notif" app:tint="#2CC1A7"/>
+        <ImageView android:id="@+id/nav_history" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/histori" app:tint="#8E8E93"/>
+        <ImageView android:id="@+id/nav_profile" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/orang" app:tint="#8E8E93"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
