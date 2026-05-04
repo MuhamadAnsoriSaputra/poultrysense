@@ -34,8 +34,6 @@ public class AkunActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(this);
 
-        FirebaseUser user = mAuth.getCurrentUser();
-
         txtNama = findViewById(R.id.txt_nama_akun);
         txtEmail = findViewById(R.id.txt_email_akun);
         menuLihatProfil = findViewById(R.id.menu_lihat_profil);
@@ -44,12 +42,8 @@ public class AkunActivity extends AppCompatActivity {
         navHistory = findViewById(R.id.nav_history);
         imgProfileAkun = findViewById(R.id.img_profile_akun);
 
-        if (user != null) {
-            txtEmail.setText(user.getEmail());
-
-            String name = user.getDisplayName();
-            txtNama.setText((name != null && !name.isEmpty()) ? name : "User PoultrySense");
-        }
+        tampilkanNamaProfilAkun();
+        tampilkanFotoProfilAkun();
 
         menuLihatProfil.setOnClickListener(v -> {
             Intent intent = new Intent(AkunActivity.this, LihatProfilActivity.class);
@@ -82,7 +76,9 @@ public class AkunActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         tampilkanNamaProfilAkun();
+        tampilkanFotoProfilAkun();
     }
 
     private void tampilkanNamaProfilAkun() {
@@ -112,6 +108,23 @@ public class AkunActivity extends AppCompatActivity {
 
         if (email != null && !email.trim().isEmpty()) {
             txtEmail.setText(email);
+        } else {
+            txtEmail.setText("Email tidak tersedia");
+        }
+    }
+
+    private void tampilkanFotoProfilAkun() {
+        SharedPreferences profilePrefs = getSharedPreferences("PROFILE_PREFS", MODE_PRIVATE);
+        String savedUri = profilePrefs.getString("profile_photo_uri", null);
+
+        if (savedUri != null && !savedUri.isEmpty()) {
+            try {
+                imgProfileAkun.setImageURI(Uri.parse(savedUri));
+            } catch (Exception e) {
+                imgProfileAkun.setImageResource(R.drawable.profil);
+            }
+        } else {
+            imgProfileAkun.setImageResource(R.drawable.profil);
         }
     }
 
