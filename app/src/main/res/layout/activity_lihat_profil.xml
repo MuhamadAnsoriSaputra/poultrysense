@@ -46,30 +46,12 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/layout_pilih_foto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackgroundBorderless">
-
-                <ImageView
-                    android:id="@+id/img_detail_profile"
-                    android:layout_width="105dp"
-                    android:layout_height="105dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/profil" />
-
-                <ImageView
-                    android:id="@+id/btn_ganti_foto"
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_gravity="bottom|end"
-                    android:background="@drawable/bg_bulat_putih"
-                    android:padding="5dp"
-                    android:src="@drawable/kamera" />
-            </FrameLayout>
+            <ImageView
+                android:id="@+id/img_detail_profile"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profil" />
 
             <TextView
                 android:id="@+id/txt_detail_nama"
@@ -223,26 +205,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/txt_info_ganti_foto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:text="Ketuk foto profil untuk mengganti dari galeri"
-            android:textColor="@color/text_gray"
-            android:textSize="13sp" />
-
-        <Button
-            android:id="@+id/btn_ubah_nama"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="#26A69A"
-            android:text="Ubah Nama Profil"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
 
     </LinearLayout>
 

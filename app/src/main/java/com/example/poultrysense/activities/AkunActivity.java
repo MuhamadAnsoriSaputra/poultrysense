@@ -22,7 +22,7 @@ public class AkunActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private SessionManager sessionManager;
 
-    private TextView txtNama, txtEmail, menuLihatProfil;
+    private TextView txtNama, txtEmail, menuLihatProfil, menuUbahProfil;
     private LinearLayout btnLogout;
     private ImageView navHome, navHistory, imgProfileAkun;
 
@@ -37,6 +37,7 @@ public class AkunActivity extends AppCompatActivity {
         txtNama = findViewById(R.id.txt_nama_akun);
         txtEmail = findViewById(R.id.txt_email_akun);
         menuLihatProfil = findViewById(R.id.menu_lihat_profil);
+        menuUbahProfil = findViewById(R.id.menu_ubah_profil);
         btnLogout = findViewById(R.id.btn_logout);
         navHome = findViewById(R.id.nav_home);
         navHistory = findViewById(R.id.nav_history);
@@ -47,6 +48,11 @@ public class AkunActivity extends AppCompatActivity {
 
         menuLihatProfil.setOnClickListener(v -> {
             Intent intent = new Intent(AkunActivity.this, LihatProfilActivity.class);
+            startActivity(intent);
+        });
+
+        menuUbahProfil.setOnClickListener(v -> {
+            Intent intent = new Intent(AkunActivity.this, UbahProfilActivity.class);
             startActivity(intent);
         });
 
