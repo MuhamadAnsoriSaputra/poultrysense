@@ -1,32 +1,36 @@
 package com.example.poultrysense.activities;
 
 import com.example.poultrysense.R;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.poultrysense.utils.SessionManager; // Tambahkan ini
+
+import com.example.poultrysense.utils.SessionManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AkunActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private SessionManager sessionManager; // Tambahkan ini agar sama dengan Dashboard
-    private TextView txtNama, txtEmail;
+    private SessionManager sessionManager;
+
+    private TextView txtNama, txtEmail, menuLihatProfil;
     private LinearLayout btnLogout;
-    private ImageView navHome, navHistory;
+    private ImageView navHome, navHistory, imgProfileAkun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_akun);
 
-        // Inisialisasi Firebase & Session sesuai Dashboard
         mAuth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(this);
 
@@ -34,20 +38,25 @@ public class AkunActivity extends AppCompatActivity {
 
         txtNama = findViewById(R.id.txt_nama_akun);
         txtEmail = findViewById(R.id.txt_email_akun);
+        menuLihatProfil = findViewById(R.id.menu_lihat_profil);
         btnLogout = findViewById(R.id.btn_logout);
         navHome = findViewById(R.id.nav_home);
         navHistory = findViewById(R.id.nav_history);
+        imgProfileAkun = findViewById(R.id.img_profile_akun);
 
         if (user != null) {
             txtEmail.setText(user.getEmail());
+
             String name = user.getDisplayName();
             txtNama.setText((name != null && !name.isEmpty()) ? name : "User PoultrySense");
         }
 
-        // --- LOGIKA KLIK ASLI ANDA YANG DISESUAIKAN DENGAN DASHBOARD ---
+        menuLihatProfil.setOnClickListener(v -> {
+            Intent intent = new Intent(AkunActivity.this, LihatProfilActivity.class);
+            startActivity(intent);
+        });
 
         btnLogout.setOnClickListener(v -> {
-            // Memanggil dialog logout agar sama dengan dashboard
             showLogoutDialog();
         });
 
@@ -70,16 +79,51 @@ public class AkunActivity extends AppCompatActivity {
         }
     }
 
-    // Mengambil fungsi showLogoutDialog persis dari Dashboard Anda
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tampilkanNamaProfilAkun();
+    }
+
+    private void tampilkanNamaProfilAkun() {
+        SharedPreferences profilePrefs = getSharedPreferences("PROFILE_PREFS", MODE_PRIVATE);
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        String namaFirebase = null;
+        String email = null;
+
+        if (user != null) {
+            namaFirebase = user.getDisplayName();
+            email = user.getEmail();
+        }
+
+        String namaLocal = profilePrefs.getString("profile_name", null);
+
+        String nama;
+        if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
+            nama = namaFirebase;
+        } else if (namaLocal != null && !namaLocal.trim().isEmpty()) {
+            nama = namaLocal;
+        } else {
+            nama = "User PoultrySense";
+        }
+
+        txtNama.setText(nama);
+
+        if (email != null && !email.trim().isEmpty()) {
+            txtEmail.setText(email);
+        }
+    }
+
     private void showLogoutDialog() {
         new AlertDialog.Builder(this)
                 .setTitle("Logout")
                 .setMessage("Apakah Anda yakin ingin keluar?")
                 .setPositiveButton("Ya", (dialog, which) -> {
                     mAuth.signOut();
-                    sessionManager.logoutUser(); // Menggunakan session manager Anda
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    // Flag ini yang memastikan balik ke LOGIN, bukan ke HOME
+                    sessionManager.logoutUser();
+
+                    Intent intent = new Intent(AkunActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();

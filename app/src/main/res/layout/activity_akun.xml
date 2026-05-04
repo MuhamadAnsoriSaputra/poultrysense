@@ -23,11 +23,13 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
                 android:paddingHorizontal="0dp">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/sementara" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,6 +38,7 @@
                     android:textColor="#26A69A"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -47,19 +50,21 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp">
+                android:layout_marginBottom="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/img_profile_akun"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:src="@drawable/profil" />
+
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
@@ -72,78 +77,189 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="18dp">
+                    android:layout_marginStart="18dp"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/txt_nama_akun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Memuat Nama..."
+                            android:text="User PoultrySense"
                             android:textColor="#26A69A"
                             android:textSize="20sp"
                             android:textStyle="bold" />
+
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_marginStart="8dp"
                             android:src="@drawable/sementara" />
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/txt_email_akun"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="email123@gmail.com"
                         android:textColor="@color/text_gray"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0" android:layout_marginBottom="20dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="#E0E0E0" />
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Opsi Akun" android:textColor="#26A69A" android:textStyle="bold" android:layout_marginBottom="10dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Lihat Profil" android:gravity="center_vertical" android:drawableStart="@drawable/sementara" android:drawablePadding="15dp"/>
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="40dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Ubah Profil" android:gravity="center_vertical" android:drawableStart="@drawable/sementara" android:drawablePadding="15dp"/>
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="40dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Hapus Akun" android:gravity="center_vertical" android:drawableStart="@drawable/sampah" android:drawablePadding="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Opsi Akun"
+                android:textColor="#26A69A"
+                android:textStyle="bold" />
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Informasi Akun" android:textColor="#26A69A" android:textStyle="bold" android:layout_marginTop="20dp" android:layout_marginBottom="10dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Riwayat" android:gravity="center_vertical" android:drawableStart="@drawable/sementara" android:drawablePadding="15dp"/>
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="40dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Notifikasi" android:gravity="center_vertical" android:drawableStart="@drawable/sementara" android:drawablePadding="15dp"/>
+            <TextView
+                android:id="@+id/menu_lihat_profil"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:drawableStart="@drawable/ic_lihat_profil"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="Lihat Profil" />
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bantuan" android:textColor="#26A69A" android:textStyle="bold" android:layout_marginTop="20dp" android:layout_marginBottom="10dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="Pusat Bantuan" android:gravity="center_vertical" android:drawableStart="@drawable/sementara" android:drawablePadding="15dp"/>
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0" android:layout_marginStart="40dp"/>
-            <TextView android:layout_width="match_parent" android:layout_height="50dp" android:text="FAQ" android:gravity="center_vertical" android:drawableStart="@drawable/sementara" android:drawablePadding="15dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="40dp"
+                android:background="#F0F0F0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_ubah_profil"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="Ubah Profil" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="40dp"
+                android:background="#F0F0F0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_hapus_akun"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="Hapus Akun" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Informasi Akun"
+                android:textColor="#26A69A"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_riwayat"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="Riwayat" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="40dp"
+                android:background="#F0F0F0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_notifikasi"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="Notifikasi" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Bantuan"
+                android:textColor="#26A69A"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_pusat_bantuan"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="Pusat Bantuan" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="40dp"
+                android:background="#F0F0F0" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableStart="@drawable/ic_faq"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="FAQ" />
 
             <LinearLayout
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_marginTop="30dp"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/logout"
+                    android:drawableEnd="@drawable/ic_arrow_right"
                     app:tint="#D32F2F" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
                     android:text="Keluar"
                     android:textColor="#D32F2F"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginStart="15dp"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -154,14 +270,41 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/white"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView android:id="@+id/nav_home" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/icon_home" app:tint="@color/text_gray"/>
-        <ImageView android:id="@+id/nav_notif" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/notif" app:tint="@color/text_gray"/>
-        <ImageView android:id="@+id/nav_history" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/histori" app:tint="@color/text_gray"/>
-        <ImageView android:id="@+id/nav_profile" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/orang" app:tint="#26A69A"/>
+        <ImageView
+            android:id="@+id/nav_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/icon_home"
+            app:tint="@color/text_gray" />
+
+        <ImageView
+            android:id="@+id/nav_notif"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/notif"
+            app:tint="@color/text_gray" />
+
+        <ImageView
+            android:id="@+id/nav_history"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/histori"
+            app:tint="@color/text_gray" />
+
+        <ImageView
+            android:id="@+id/nav_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/orang"
+            app:tint="#26A69A" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
