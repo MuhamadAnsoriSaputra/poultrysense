@@ -20,6 +20,8 @@ public class DashboardActivity extends AppCompatActivity {
     private ImageView imgProfile;
     private LinearLayout menuRiwayat, menuNotifikasi;
     private ImageView navHome, navNotif, navHistory, navProfile;
+    private LinearLayout menuJadwal;
+    private android.widget.TextView txtJadwalAktif;
 
     private android.widget.TextView txtKonsumsiGram, txtSisaGram, txtStatusPakanMonitor, txtHariIni;
     private final int MAX_CAPACITY_GRAM = 5000; // Kapasitas Wadah 5kg
@@ -41,6 +43,8 @@ public class DashboardActivity extends AppCompatActivity {
         navNotif = findViewById(R.id.nav_notif);
         navHistory = findViewById(R.id.nav_history);
         navProfile = findViewById(R.id.nav_profile);
+        menuJadwal = findViewById(R.id.menu_jadwal);
+        txtJadwalAktif = findViewById(R.id.txt_jadwal_aktif);
 
         // Inisialisasi UI Monitoring
         txtKonsumsiGram = findViewById(R.id.txt_konsumsi_gram);
@@ -52,6 +56,8 @@ public class DashboardActivity extends AppCompatActivity {
             menuNotifikasi.setOnClickListener(v -> navigateTo(NotificationActivity.class));
         if (menuRiwayat != null)
             menuRiwayat.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
+        if (menuJadwal != null)
+            menuJadwal.setOnClickListener(v -> navigateTo(JadwalPakanActivity.class));
 
         LinearLayout btnProfileSwitcher = findViewById(R.id.btn_profile_switcher);
         if (btnProfileSwitcher != null)
@@ -132,6 +138,30 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         tampilkanDataProfil();
+        tampilkanJadwalAktif();
+    }
+
+    private void tampilkanJadwalAktif() {
+        com.example.poultrysense.utils.JadwalManager jm = new com.example.poultrysense.utils.JadwalManager(this);
+        java.util.List<com.example.poultrysense.models.JadwalPakan> list = jm.getListJadwal();
+        
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (com.example.poultrysense.models.JadwalPakan j : list) {
+            if (j.isAktif()) {
+                if (count > 0) sb.append("\n");
+                sb.append(j.getWaktuFormatted()).append(" - ").append(j.getLabel());
+                count++;
+            }
+        }
+
+        if (txtJadwalAktif != null) {
+            if (count > 0) {
+                txtJadwalAktif.setText(sb.toString());
+            } else {
+                txtJadwalAktif.setText("Belum ada jadwal aktif");
+            }
+        }
     }
 
     private void tampilkanDataProfil() {

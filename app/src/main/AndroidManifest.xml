@@ -58,6 +58,10 @@
             android:name=".activities.UbahProfilActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activities.JadwalPakanActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
