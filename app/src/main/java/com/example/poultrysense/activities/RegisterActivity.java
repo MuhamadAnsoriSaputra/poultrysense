@@ -27,13 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnDaftar = findViewById(R.id.btnDaftar);
         tvLogin = findViewById(R.id.tvLogin);
 
-        btnDaftar.setOnClickListener(v -> {
-            registerUser();
-        });
-
-        tvLogin.setOnClickListener(v -> {
-            finish();
-        });
+        btnDaftar.setOnClickListener(v -> registerUser());
+        tvLogin.setOnClickListener(v -> finish());
     }
 
     private void registerUser() {

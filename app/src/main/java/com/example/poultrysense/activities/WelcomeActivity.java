@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.poultrysense.R;
-import com.google.firebase.auth.FirebaseAuth; // Tambahkan ini
+import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -28,8 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
         LinearLayout btnContinue = findViewById(R.id.btnContinue);
 
         btnContinue.setOnClickListener(v -> {
-            Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
             finish();
         });
     }

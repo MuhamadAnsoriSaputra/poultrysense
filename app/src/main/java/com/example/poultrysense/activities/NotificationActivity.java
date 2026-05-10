@@ -1,6 +1,5 @@
 package com.example.poultrysense.activities;
 
-// Import R sangat penting agar tidak error "package R does not exist"
 import com.example.poultrysense.R;
 
 import android.content.Intent;

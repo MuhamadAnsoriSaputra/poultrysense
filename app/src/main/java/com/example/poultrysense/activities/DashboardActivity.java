@@ -42,22 +42,9 @@ public class DashboardActivity extends AppCompatActivity {
         navHistory = findViewById(R.id.nav_history);
         navProfile = findViewById(R.id.nav_profile);
 
-        // --- LOGIKA NAVIGASI NOTIFIKASI ---
-
-        // Klik pada Icon Notifikasi di Kartu Menu (Tengah)
-        if (menuNotifikasi != null) {
-            menuNotifikasi.setOnClickListener(v -> navigateTo(NotificationActivity.class));
-        }
-
-        // --- LOGIKA NAVIGASI LAINNYA ---
-
-        if (menuRiwayat != null) {
-            menuRiwayat.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
-        }
-
-        if (imgProfile != null) {
-            imgProfile.setOnClickListener(v -> showProfileMenu());
-        }
+        if (menuNotifikasi != null) menuNotifikasi.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (menuRiwayat != null) menuRiwayat.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
+        if (imgProfile != null) imgProfile.setOnClickListener(v -> showProfileMenu());
 
         setupBottomNavigation();
     }

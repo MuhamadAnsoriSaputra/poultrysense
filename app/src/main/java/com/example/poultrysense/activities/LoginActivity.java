@@ -45,9 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(v -> loginUser());
 
-        tvDaftar.setOnClickListener(v -> {
-            startActivity(new Intent(this, RegisterActivity.class));
-        });
+        tvDaftar.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("1054560648543-ka75khjgvrvlit4fad2pjn70c28o46ks.apps.googleusercontent.com")
@@ -56,12 +54,10 @@ public class LoginActivity extends AppCompatActivity {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        btnGoogle.setOnClickListener(v -> {
-            googleSignInClient.signOut().addOnCompleteListener(task -> {
-                Intent signInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
-            });
-        });
+        btnGoogle.setOnClickListener(v -> googleSignInClient.signOut().addOnCompleteListener(task -> {
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        }));
     }
 
     private void loginUser() {

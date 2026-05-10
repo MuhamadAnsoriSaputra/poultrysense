@@ -3,7 +3,6 @@ package com.example.poultrysense.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.poultrysense.R;
 

@@ -46,19 +46,9 @@ public class AkunActivity extends AppCompatActivity {
         tampilkanNamaProfilAkun();
         tampilkanFotoProfilAkun();
 
-        menuLihatProfil.setOnClickListener(v -> {
-            Intent intent = new Intent(AkunActivity.this, LihatProfilActivity.class);
-            startActivity(intent);
-        });
-
-        menuUbahProfil.setOnClickListener(v -> {
-            Intent intent = new Intent(AkunActivity.this, UbahProfilActivity.class);
-            startActivity(intent);
-        });
-
-        btnLogout.setOnClickListener(v -> {
-            showLogoutDialog();
-        });
+        menuLihatProfil.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, LihatProfilActivity.class)));
+        menuUbahProfil.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, UbahProfilActivity.class)));
+        btnLogout.setOnClickListener(v -> showLogoutDialog());
 
         ImageView navNotif = findViewById(R.id.nav_notif);
         setupBottomNavigation(navHome, navNotif, navHistory);
