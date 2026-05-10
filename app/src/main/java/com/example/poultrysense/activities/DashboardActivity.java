@@ -20,7 +20,8 @@ public class DashboardActivity extends AppCompatActivity {
     private ImageView imgProfile;
     private LinearLayout menuRiwayat, menuNotifikasi;
     private ImageView navHome, navNotif, navHistory, navProfile;
-    private LinearLayout menuJadwal;
+    private androidx.cardview.widget.CardView navPakan;
+    private LinearLayout menuJadwal, menuPakan;
     private android.widget.TextView txtJadwalAktif;
 
     private android.widget.TextView txtKonsumsiGram, txtSisaGram, txtStatusPakanMonitor, txtHariIni;
@@ -43,7 +44,9 @@ public class DashboardActivity extends AppCompatActivity {
         navNotif = findViewById(R.id.nav_notif);
         navHistory = findViewById(R.id.nav_history);
         navProfile = findViewById(R.id.nav_profile);
+        navPakan = findViewById(R.id.nav_pakan);
         menuJadwal = findViewById(R.id.menu_jadwal);
+        menuPakan = findViewById(R.id.menu_pakan);
         txtJadwalAktif = findViewById(R.id.txt_jadwal_aktif);
 
         // Inisialisasi UI Monitoring
@@ -58,6 +61,8 @@ public class DashboardActivity extends AppCompatActivity {
             menuRiwayat.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
         if (menuJadwal != null)
             menuJadwal.setOnClickListener(v -> navigateTo(JadwalPakanActivity.class));
+        if (menuPakan != null)
+            menuPakan.setOnClickListener(v -> navigateTo(BeriPakanActivity.class));
 
         LinearLayout btnProfileSwitcher = findViewById(R.id.btn_profile_switcher);
         if (btnProfileSwitcher != null)
@@ -119,6 +124,8 @@ public class DashboardActivity extends AppCompatActivity {
             navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
         if (navNotif != null)
             navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navPakan != null)
+            navPakan.setOnClickListener(v -> navigateTo(MenuPakanActivity.class));
         if (navHistory != null)
             navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
         if (navProfile != null)

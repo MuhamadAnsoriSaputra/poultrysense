@@ -4,29 +4,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import com.example.poultrysense.R;
 
-public class RiwayatActivity extends AppCompatActivity {
-
-    private ImageView navHome, navHistory, navNotif, navProfile;
-    private androidx.cardview.widget.CardView navPakan;
+public class MenuPakanActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_riwayat);
+        setContentView(R.layout.activity_menu_pakan);
 
-        navHome = findViewById(R.id.nav_home);
-        navHistory = findViewById(R.id.nav_history);
-        navNotif = findViewById(R.id.nav_notif);
-        navProfile = findViewById(R.id.nav_profile);
-        navPakan = findViewById(R.id.nav_pakan);
+        CardView cardJadwal = findViewById(R.id.card_jadwal_pakan);
+        CardView cardManual = findViewById(R.id.card_pakan_manual);
 
-        // --- LOGIKA KLIK ASLI ANDA ---
+        cardJadwal.setOnClickListener(v -> {
+            startActivity(new Intent(this, JadwalPakanActivity.class));
+        });
+
+        cardManual.setOnClickListener(v -> {
+            startActivity(new Intent(this, BeriPakanActivity.class));
+        });
+
         setupBottomNavigation();
     }
 
     private void setupBottomNavigation() {
+        ImageView navHome = findViewById(R.id.nav_home);
+        ImageView navNotif = findViewById(R.id.nav_notif);
+        ImageView navHistory = findViewById(R.id.nav_history);
+        ImageView navProfile = findViewById(R.id.nav_profile);
+        androidx.cardview.widget.CardView navPakan = findViewById(R.id.nav_pakan);
+
         if (navHome != null) navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
         if (navNotif != null) navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
         if (navPakan != null) navPakan.setOnClickListener(v -> navigateTo(MenuPakanActivity.class));

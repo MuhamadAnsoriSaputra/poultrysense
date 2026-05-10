@@ -25,6 +25,7 @@ public class AkunActivity extends AppCompatActivity {
     private TextView txtNama, txtEmail, menuLihatProfil, menuUbahProfil;
     private LinearLayout btnLogout;
     private ImageView navHome, navHistory, imgProfileAkun;
+    private androidx.cardview.widget.CardView navPakan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +52,17 @@ public class AkunActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(v -> showLogoutDialog());
 
         ImageView navNotif = findViewById(R.id.nav_notif);
-        setupBottomNavigation(navHome, navNotif, navHistory);
+        navPakan = findViewById(R.id.nav_pakan);
+        setupBottomNavigation(navHome, navNotif, navPakan, navHistory);
     }
 
-    private void setupBottomNavigation(ImageView navHome, ImageView navNotif, ImageView navHistory) {
+    private void setupBottomNavigation(ImageView navHome, ImageView navNotif, androidx.cardview.widget.CardView navPakan, ImageView navHistory) {
         if (navHome != null)
             navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
         if (navNotif != null)
             navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navPakan != null)
+            navPakan.setOnClickListener(v -> navigateTo(MenuPakanActivity.class));
         if (navHistory != null)
             navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
         ImageView navProfile = findViewById(R.id.nav_profile);

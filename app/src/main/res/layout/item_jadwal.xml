@@ -44,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            app:thumbTint="@color/teal_primary"
-            app:trackTint="@color/teal_soft_bg" />
+            app:thumbTint="@color/switch_thumb_selector"
+            app:trackTint="@color/switch_track_selector" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

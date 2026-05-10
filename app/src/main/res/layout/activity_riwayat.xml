@@ -149,19 +149,100 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-    android:id="@+id/nav_bottom_bar"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:background="@color/white"
-    android:orientation="horizontal"
-    android:gravity="center"
-    app:layout_constraintBottom_toBottomOf="parent">
+    <!-- Bottom Navigation Bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nav_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <ImageView android:id="@+id/nav_home" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_home" app:tint="@color/text_gray"/>
-    <ImageView android:id="@+id/nav_notif" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_notification" app:tint="@color/text_gray"/>
-    <ImageView android:id="@+id/nav_history" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_history" app:tint="@color/teal_primary"/>
-    <ImageView android:id="@+id/nav_profile" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_profile" app:tint="@color/text_gray"/>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:elevation="8dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/nav_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_nav_home"
+                app:tint="@color/text_gray"/>
+
+            <ImageView
+                android:id="@+id/nav_notif"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_nav_notification"
+                app:tint="@color/text_gray"/>
+
+            <!-- Spacer for Center Button -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/nav_history"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_nav_history"
+                app:tint="@color/teal_primary"/>
+
+            <ImageView
+                android:id="@+id/nav_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_nav_profile"
+                app:tint="@color/text_gray"/>
+        </LinearLayout>
+
+        <!-- Center Floating Pakan Button -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nav_pakan"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="25dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/teal_primary"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:src="@drawable/ic_pakan_action"
+                app:tint="@color/white" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

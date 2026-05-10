@@ -36,6 +36,7 @@ public class NotificationActivity extends AppCompatActivity {
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navHistory = findViewById(R.id.nav_history);
         ImageView navProfile = findViewById(R.id.nav_profile);
+        androidx.cardview.widget.CardView navPakan = findViewById(R.id.nav_pakan);
 
         // 3. Logika Klik Tab
         for (TextView tab : allTabs) {
@@ -46,12 +47,13 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
         // 4. Navigasi
-        setupBottomNavigation(navHome, findViewById(R.id.nav_notif), navHistory, navProfile);
+        setupBottomNavigation(navHome, findViewById(R.id.nav_notif), navPakan, navHistory, navProfile);
     }
 
-    private void setupBottomNavigation(ImageView navHome, ImageView navNotif, ImageView navHistory, ImageView navProfile) {
+    private void setupBottomNavigation(ImageView navHome, ImageView navNotif, androidx.cardview.widget.CardView navPakan, ImageView navHistory, ImageView navProfile) {
         if (navHome != null) navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
         if (navNotif != null) navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navPakan != null) navPakan.setOnClickListener(v -> navigateTo(MenuPakanActivity.class));
         if (navHistory != null) navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
         if (navProfile != null) navProfile.setOnClickListener(v -> navigateTo(AkunActivity.class));
     }

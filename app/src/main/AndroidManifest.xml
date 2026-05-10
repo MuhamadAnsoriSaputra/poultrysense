@@ -62,6 +62,14 @@
             android:name=".activities.JadwalPakanActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activities.BeriPakanActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.MenuPakanActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

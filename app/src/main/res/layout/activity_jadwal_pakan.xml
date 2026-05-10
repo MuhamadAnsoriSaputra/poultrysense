@@ -9,24 +9,28 @@
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:background="@color/white"
-        android:paddingHorizontal="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btn_back_jadwal"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_centerVertical="true"
-            android:padding="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
             android:src="@drawable/ic_back"
             app:tint="@color/text_black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
             android:text="Jadwal Pakan"
             android:textColor="@color/text_black"
             android:textSize="18sp"
