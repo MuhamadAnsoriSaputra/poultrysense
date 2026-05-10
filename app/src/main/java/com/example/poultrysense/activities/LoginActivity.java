@@ -2,12 +2,14 @@ package com.example.poultrysense.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.poultrysense.R;
 import com.example.poultrysense.utils.SessionManager;
+import com.example.poultrysense.utils.MultiAccountManager;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -19,10 +21,12 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private com.google.android.material.button.MaterialButton btnGoogle;
     private TextView tvDaftar;
+    private ImageView imgShowPassword;
     private FirebaseAuth mAuth;
     private GoogleSignInClient googleSignInClient;
     private SessionManager sessionManager;
     private static final int RC_SIGN_IN = 9001;
+    private boolean isPasswordVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,29 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnGoogle = findViewById(R.id.btnGoogleCustom);
         tvDaftar = findViewById(R.id.tvDaftar);
+        imgShowPassword = findViewById(R.id.imgShowPasswordLogin);
 
         btnLogin.setOnClickListener(v -> loginUser());
-
         tvDaftar.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+
+        imgShowPassword.setOnClickListener(v -> {
+            isPasswordVisible = !isPasswordVisible;
+            if (isPasswordVisible) {
+                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                imgShowPassword.setImageResource(R.drawable.ic_eye);
+            } else {
+                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                imgShowPassword.setImageResource(R.drawable.ic_eye_off);
+            }
+            etPassword.setSelection(etPassword.getText().length());
+        });
+
+        // Prefill email jika diarahkan dari account switcher
+        String prefillEmail = getIntent().getStringExtra("prefill_email");
+        if (prefillEmail != null && !prefillEmail.isEmpty()) {
+            etEmail.setText(prefillEmail);
+            etPassword.requestFocus();
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("1054560648543-ka75khjgvrvlit4fad2pjn70c28o46ks.apps.googleusercontent.com")
@@ -76,6 +99,23 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 sessionManager.createLoginSession(email);
+                
+                // Simpan akun ke MultiAccountManager untuk fitur switch cepat
+                MultiAccountManager mam = new MultiAccountManager(this);
+
+                // Prioritas nama: Firebase displayName > SharedPreferences > sebelum '@' di email
+                String name = email.contains("@") ? email.substring(0, email.indexOf('@')) : email;
+                if (mAuth.getCurrentUser() != null && mAuth.getCurrentUser().getDisplayName() != null
+                        && !mAuth.getCurrentUser().getDisplayName().trim().isEmpty()) {
+                    name = mAuth.getCurrentUser().getDisplayName();
+                }
+                android.content.SharedPreferences profilePrefs = getSharedPreferences("PROFILE_PREFS", MODE_PRIVATE);
+                String savedName = profilePrefs.getString("profile_name", "");
+                if (!savedName.isEmpty()) name = savedName;
+
+                String photoUri = profilePrefs.getString("profile_photo_uri", "");
+                mam.saveAccount(email, pass, name, photoUri);
+
                 startActivity(new Intent(this, DashboardActivity.class));
                 finish();
             } else {
@@ -109,6 +149,19 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
                     sessionManager.createLoginSession(user.getEmail());
+                    
+                    // Ambil nama dari Google Profile
+                    String name = user.getDisplayName();
+                    if (name == null || name.isEmpty()) {
+                        name = user.getEmail().substring(0, user.getEmail().indexOf("@"));
+                    }
+                    
+                    String photoUri = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "";
+                    
+                    // Simpan ke MultiAccountManager (Password dikosongkan untuk Google Auth)
+                    MultiAccountManager mam = new MultiAccountManager(this);
+                    mam.saveAccount(user.getEmail(), "", name, photoUri);
+                    
                     startActivity(new Intent(this, DashboardActivity.class));
                     finish();
                 }

@@ -98,7 +98,12 @@ public class UbahProfilActivity extends AppCompatActivity {
             } else if (namaLocal != null && !namaLocal.trim().isEmpty()) {
                 edtNamaProfil.setText(namaLocal);
             } else {
-                edtNamaProfil.setText("User PoultrySense");
+                // Fallback: prefix email
+                if (email != null && email.contains("@")) {
+                    edtNamaProfil.setText(email.substring(0, email.indexOf('@')));
+                } else {
+                    edtNamaProfil.setText("User");
+                }
             }
 
             if (email != null && !email.trim().isEmpty()) {
@@ -145,7 +150,22 @@ public class UbahProfilActivity extends AppCompatActivity {
 
         editor.apply();
 
+        // Update MultiAccountManager agar list akun ikut terupdate
         FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null && user.getEmail() != null) {
+            com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+            java.util.List<com.example.poultrysense.utils.MultiAccountManager.SavedAccount> accs = mam.getSavedAccounts();
+            for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : accs) {
+                if (acc.email.equals(user.getEmail())) {
+                    acc.name = namaBaru;
+                    if (selectedImageUri != null) {
+                        acc.photoUri = selectedImageUri.toString();
+                    }
+                    mam.saveAccount(acc.email, acc.password, acc.name, acc.photoUri);
+                    break;
+                }
+            }
+        }
 
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

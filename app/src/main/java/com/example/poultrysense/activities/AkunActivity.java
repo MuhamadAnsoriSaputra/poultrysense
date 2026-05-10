@@ -87,15 +87,15 @@ public class AkunActivity extends AppCompatActivity {
         SharedPreferences profilePrefs = getSharedPreferences("PROFILE_PREFS", MODE_PRIVATE);
         FirebaseUser user = mAuth.getCurrentUser();
 
-        String namaFirebase = null;
-        String email = null;
-
-        if (user != null) {
-            namaFirebase = user.getDisplayName();
-            email = user.getEmail();
-        }
-
+        String namaFirebase = (user != null) ? user.getDisplayName() : null;
         String namaLocal = profilePrefs.getString("profile_name", null);
+        String email = (user != null) ? user.getEmail() : null;
+
+        // Fallback: ambil bagian sebelum '@' dari email
+        String emailPrefix = "User";
+        if (email != null && email.contains("@")) {
+            emailPrefix = email.substring(0, email.indexOf('@'));
+        }
 
         String nama;
         if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
@@ -103,7 +103,7 @@ public class AkunActivity extends AppCompatActivity {
         } else if (namaLocal != null && !namaLocal.trim().isEmpty()) {
             nama = namaLocal;
         } else {
-            nama = "User PoultrySense";
+            nama = emailPrefix;
         }
 
         txtNama.setText(nama);
