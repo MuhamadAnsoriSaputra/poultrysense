@@ -21,6 +21,9 @@ public class DashboardActivity extends AppCompatActivity {
     private LinearLayout menuRiwayat, menuNotifikasi;
     private ImageView navHome, navNotif, navHistory, navProfile;
 
+    private android.widget.TextView txtKonsumsiGram, txtSisaGram, txtStatusPakanMonitor, txtHariIni;
+    private final int MAX_CAPACITY_GRAM = 5000; // Kapasitas Wadah 5kg
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,12 @@ public class DashboardActivity extends AppCompatActivity {
         navHistory = findViewById(R.id.nav_history);
         navProfile = findViewById(R.id.nav_profile);
 
+        // Inisialisasi UI Monitoring
+        txtKonsumsiGram = findViewById(R.id.txt_konsumsi_gram);
+        txtSisaGram = findViewById(R.id.txt_sisa_gram);
+        txtStatusPakanMonitor = findViewById(R.id.txt_status_pakan_monitor);
+        txtHariIni = findViewById(R.id.txt_hari_ini);
+
         if (menuNotifikasi != null)
             menuNotifikasi.setOnClickListener(v -> navigateTo(NotificationActivity.class));
         if (menuRiwayat != null)
@@ -51,6 +60,52 @@ public class DashboardActivity extends AppCompatActivity {
             imgProfile.setOnClickListener(v -> showProfileMenu(imgProfile));
 
         setupBottomNavigation();
+
+        // Simulasi data dari IoT (Nanti hubungkan dengan Firebase Realtime Database)
+        // Misal sensor ultrasonik mendeteksi sisa pakan 75%
+        updateMonitoringDashboard(75);
+    }
+
+    /**
+     * Logika Monitoring Pakan (IoT Ready)
+     * @param percentageRemaining Persentase sisa pakan dari sensor ultrasonik (0-100)
+     */
+    private void updateMonitoringDashboard(double percentageRemaining) {
+        // 1. Hitung Berat (Gram)
+        // Logika: (Persen / 100) * Kapasitas Maksimal
+        double currentGrams = (percentageRemaining / 100.0) * MAX_CAPACITY_GRAM;
+        
+        // Logika Konsumsi: Kapasitas Awal Hari Ini (misal 5kg) - Sisa Sekarang
+        // Catatan: Untuk produksi, simpan nilai awal hari ini di Firebase/LocalPrefs
+        double consumptionGrams = MAX_CAPACITY_GRAM - currentGrams;
+
+        // 2. Update UI
+        if (txtKonsumsiGram != null) {
+            txtKonsumsiGram.setText(String.format("%,.0f g", consumptionGrams).replace(",", "."));
+        }
+        if (txtSisaGram != null) {
+            txtSisaGram.setText(String.format("%,.0f g", currentGrams).replace(",", "."));
+        }
+
+        // 3. Update Status Warna
+        if (txtStatusPakanMonitor != null) {
+            if (percentageRemaining > 40) {
+                txtStatusPakanMonitor.setText("Cukup");
+                txtStatusPakanMonitor.setTextColor(getResources().getColor(R.color.teal_primary));
+            } else if (percentageRemaining > 15) {
+                txtStatusPakanMonitor.setText("Menipis");
+                txtStatusPakanMonitor.setTextColor(android.graphics.Color.parseColor("#F59E0B")); // Warna Orange/Amber
+            } else {
+                txtStatusPakanMonitor.setText("Hampir Habis");
+                txtStatusPakanMonitor.setTextColor(android.graphics.Color.RED);
+            }
+        }
+
+        // 4. Update Tanggal Hari Ini
+        if (txtHariIni != null) {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("EEEE, d MMMM", new java.util.Locale("id", "ID"));
+            txtHariIni.setText(sdf.format(new java.util.Date()));
+        }
     }
 
     private void setupBottomNavigation() {
