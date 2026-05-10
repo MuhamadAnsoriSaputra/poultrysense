@@ -46,55 +46,34 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Klik pada Icon Notifikasi di Kartu Menu (Tengah)
         if (menuNotifikasi != null) {
-            menuNotifikasi.setOnClickListener(v -> goToNotification());
-        }
-
-        // Klik pada Icon Notifikasi di Bottom Bar
-        if (navNotif != null) {
-            navNotif.setOnClickListener(v -> goToNotification());
+            menuNotifikasi.setOnClickListener(v -> navigateTo(NotificationActivity.class));
         }
 
         // --- LOGIKA NAVIGASI LAINNYA ---
 
-        if (navHistory != null) {
-            navHistory.setOnClickListener(v -> goToRiwayat());
-        }
-
         if (menuRiwayat != null) {
-            menuRiwayat.setOnClickListener(v -> goToRiwayat());
-        }
-
-        if (navHome != null) {
-            navHome.setOnClickListener(v -> {
-                Toast.makeText(this, "Anda sedang di Beranda", Toast.LENGTH_SHORT).show();
-            });
+            menuRiwayat.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
         }
 
         if (imgProfile != null) {
             imgProfile.setOnClickListener(v -> showProfileMenu());
         }
 
-        if (navProfile != null) {
-            navProfile.setOnClickListener(v -> {
-                Intent intent = new Intent(DashboardActivity.this, AkunActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-            });
-        }
+        setupBottomNavigation();
     }
 
     // --- FUNGSI HELPER NAVIGASI ---
 
-    private void goToNotification() {
-        Intent intent = new Intent(DashboardActivity.this, NotificationActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
-        overridePendingTransition(0, 0);
+    private void setupBottomNavigation() {
+        if (navHome != null) navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
+        if (navNotif != null) navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navHistory != null) navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
+        if (navProfile != null) navProfile.setOnClickListener(v -> navigateTo(AkunActivity.class));
     }
 
-    private void goToRiwayat() {
-        Intent intent = new Intent(DashboardActivity.this, RiwayatActivity.class);
+    private void navigateTo(Class<?> targetActivity) {
+        if (this.getClass() == targetActivity) return;
+        Intent intent = new Intent(this, targetActivity);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         overridePendingTransition(0, 0);

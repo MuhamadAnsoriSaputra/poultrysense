@@ -87,10 +87,10 @@
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView android:id="@+id/nav_home" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/icon_home" app:tint="#8E8E93"/>
-        <ImageView android:id="@+id/nav_notif" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/notif" app:tint="#2CC1A7"/>
-        <ImageView android:id="@+id/nav_history" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/histori" app:tint="#8E8E93"/>
-        <ImageView android:id="@+id/nav_profile" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:src="@drawable/orang" app:tint="#8E8E93"/>
+        <ImageView android:id="@+id/nav_home" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_home" app:tint="#8E8E93"/>
+        <ImageView android:id="@+id/nav_notif" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_notification" app:tint="#2CC1A7"/>
+        <ImageView android:id="@+id/nav_history" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_history" app:tint="#8E8E93"/>
+        <ImageView android:id="@+id/nav_profile" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:clickable="true" android:focusable="true" android:padding="10dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@drawable/ic_nav_profile" app:tint="#8E8E93"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

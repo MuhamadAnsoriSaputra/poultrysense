@@ -22,31 +22,21 @@ public class RiwayatActivity extends AppCompatActivity {
         navProfile = findViewById(R.id.nav_profile);
 
         // --- LOGIKA KLIK ASLI ANDA ---
+        setupBottomNavigation();
+    }
 
-        if (navHome != null) {
-            navHome.setOnClickListener(v -> {
-                Intent intent = new Intent(RiwayatActivity.this, DashboardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
-            });
-        }
+    private void setupBottomNavigation() {
+        if (navHome != null) navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
+        if (navNotif != null) navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navHistory != null) navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
+        if (navProfile != null) navProfile.setOnClickListener(v -> navigateTo(AkunActivity.class));
+    }
 
-        if (navNotif != null) {
-            navNotif.setOnClickListener(v -> {
-                Toast.makeText(this, "Notifikasi", Toast.LENGTH_SHORT).show();
-            });
-        }
-
-        if (navProfile != null) {
-            navProfile.setOnClickListener(v -> {
-                Intent intent = new Intent(RiwayatActivity.this, AkunActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
-            });
-        }
+    private void navigateTo(Class<?> targetActivity) {
+        if (this.getClass() == targetActivity) return;
+        Intent intent = new Intent(this, targetActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 }

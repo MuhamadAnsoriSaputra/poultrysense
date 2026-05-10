@@ -47,19 +47,22 @@ public class NotificationActivity extends AppCompatActivity {
         }
 
         // 4. Navigasi
-        navHome.setOnClickListener(v -> {
-            Intent intent = new Intent(this, DashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-            finish();
-        });
+        setupBottomNavigation(navHome, findViewById(R.id.nav_notif), navHistory, navProfile);
+    }
 
-        navHistory.setOnClickListener(v -> finish());
+    private void setupBottomNavigation(ImageView navHome, ImageView navNotif, ImageView navHistory, ImageView navProfile) {
+        if (navHome != null) navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
+        if (navNotif != null) navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navHistory != null) navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
+        if (navProfile != null) navProfile.setOnClickListener(v -> navigateTo(AkunActivity.class));
+    }
 
-        navProfile.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AkunActivity.class);
-            startActivity(intent);
-        });
+    private void navigateTo(Class<?> targetActivity) {
+        if (this.getClass() == targetActivity) return;
+        Intent intent = new Intent(this, targetActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
     private void updateTabStyle(TextView selectedTab) {

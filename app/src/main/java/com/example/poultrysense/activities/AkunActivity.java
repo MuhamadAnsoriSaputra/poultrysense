@@ -60,23 +60,24 @@ public class AkunActivity extends AppCompatActivity {
             showLogoutDialog();
         });
 
-        navHome.setOnClickListener(v -> {
-            Intent intent = new Intent(AkunActivity.this, DashboardActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-            overridePendingTransition(0, 0);
-            finish();
-        });
+        ImageView navNotif = findViewById(R.id.nav_notif);
+        setupBottomNavigation(navHome, navNotif, navHistory);
+    }
 
-        if (navHistory != null) {
-            navHistory.setOnClickListener(v -> {
-                Intent intent = new Intent(AkunActivity.this, RiwayatActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
-            });
-        }
+    private void setupBottomNavigation(ImageView navHome, ImageView navNotif, ImageView navHistory) {
+        if (navHome != null) navHome.setOnClickListener(v -> navigateTo(DashboardActivity.class));
+        if (navNotif != null) navNotif.setOnClickListener(v -> navigateTo(NotificationActivity.class));
+        if (navHistory != null) navHistory.setOnClickListener(v -> navigateTo(RiwayatActivity.class));
+        ImageView navProfile = findViewById(R.id.nav_profile);
+        if (navProfile != null) navProfile.setOnClickListener(v -> navigateTo(AkunActivity.class));
+    }
+
+    private void navigateTo(Class<?> targetActivity) {
+        if (this.getClass() == targetActivity) return;
+        Intent intent = new Intent(this, targetActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
     @Override

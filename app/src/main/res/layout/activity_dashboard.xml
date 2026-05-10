@@ -193,7 +193,7 @@
             android:focusable="true"
             android:padding="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/icon_home"
+            android:src="@drawable/ic_nav_home"
             app:tint="@color/teal_primary"/>
         <ImageView
             android:id="@+id/nav_notif"
@@ -203,7 +203,7 @@
             android:focusable="true"
             android:padding="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/notif"
+            android:src="@drawable/ic_nav_notification"
             app:tint="@color/text_gray"/>
         <ImageView
             android:id="@+id/nav_history"
@@ -213,7 +213,7 @@
             android:focusable="true"
             android:padding="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/histori"
+            android:src="@drawable/ic_nav_history"
             app:tint="@color/text_gray"/>
         <ImageView
             android:id="@+id/nav_profile"
@@ -223,7 +223,7 @@
             android:focusable="true"
             android:padding="10dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/orang"
+            android:src="@drawable/ic_nav_profile"
             app:tint="@color/text_gray"/>
     </LinearLayout>
 
