@@ -20,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class UbahProfilActivity extends AppCompatActivity {
 
@@ -147,6 +150,10 @@ public class UbahProfilActivity extends AppCompatActivity {
         if (selectedImageUri != null) {
             editor.putString("profile_photo_uri", selectedImageUri.toString());
         }
+
+        // Simpan waktu update profil terakhir
+        String lastUpdate = new SimpleDateFormat("dd MMMM yyyy - hh:mm a", Locale.getDefault()).format(new Date());
+        editor.putString("last_profile_update", lastUpdate);
 
         editor.apply();
 
