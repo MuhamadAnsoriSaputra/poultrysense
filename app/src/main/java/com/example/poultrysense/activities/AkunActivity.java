@@ -22,7 +22,7 @@ public class AkunActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private SessionManager sessionManager;
 
-    private TextView txtNama, txtEmail, menuLihatProfil, menuUbahProfil;
+    private TextView txtNama, txtEmail, menuLihatProfil, menuUbahProfil, menuRiwayatAkun, menuNotifikasi, menuPusatBantuan, menuFAQ;
     private LinearLayout btnLogout;
     private ImageView navHome, navHistory, imgProfileAkun;
     private androidx.cardview.widget.CardView navPakan;
@@ -39,6 +39,11 @@ public class AkunActivity extends AppCompatActivity {
         txtEmail = findViewById(R.id.txt_email_akun);
         menuLihatProfil = findViewById(R.id.menu_lihat_profil);
         menuUbahProfil = findViewById(R.id.menu_ubah_profil);
+        menuRiwayatAkun = findViewById(R.id.menu_riwayat_akun);
+        menuNotifikasi = findViewById(R.id.menu_notifikasi);
+        menuPusatBantuan = findViewById(R.id.menu_pusat_bantuan);
+        menuFAQ = findViewById(R.id.menu_faq);
+        
         btnLogout = findViewById(R.id.btn_logout);
         navHome = findViewById(R.id.nav_home);
         navHistory = findViewById(R.id.nav_history);
@@ -49,6 +54,13 @@ public class AkunActivity extends AppCompatActivity {
 
         menuLihatProfil.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, LihatProfilActivity.class)));
         menuUbahProfil.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, UbahProfilActivity.class)));
+        menuRiwayatAkun.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, RiwayatAkunActivity.class)));
+        menuNotifikasi.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, NotificationActivity.class)));
+        
+        // Link to new Help Center and FAQ
+        menuPusatBantuan.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, PusatBantuanActivity.class)));
+        menuFAQ.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, FAQActivity.class)));
+
         btnLogout.setOnClickListener(v -> showLogoutDialog());
 
         ImageView navNotif = findViewById(R.id.nav_notif);

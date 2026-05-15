@@ -70,6 +70,22 @@
             android:name=".activities.MenuPakanActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activities.RiwayatAkunActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.LupaPasswordActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.FAQActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.PusatBantuanActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
