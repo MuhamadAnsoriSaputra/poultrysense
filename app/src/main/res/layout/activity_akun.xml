@@ -184,8 +184,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/menu_riwayat_akun"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_riwayat"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="15dp"
@@ -199,8 +203,12 @@
                 android:background="#F0F0F0" />
 
             <TextView
+                android:id="@+id/menu_notifikasi"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_notifikasi"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="15dp"
@@ -217,8 +225,12 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/menu_pusat_bantuan"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_pusat_bantuan"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="15dp"
@@ -232,8 +244,12 @@
                 android:background="#F0F0F0" />
 
             <TextView
+                android:id="@+id/menu_faq"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 android:drawableStart="@drawable/ic_faq"
                 android:drawableEnd="@drawable/ic_arrow_right"
                 android:drawablePadding="15dp"
@@ -254,7 +270,6 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/logout"
-                    android:drawableEnd="@drawable/ic_arrow_right"
                     app:tint="#D32F2F" />
 
                 <TextView
