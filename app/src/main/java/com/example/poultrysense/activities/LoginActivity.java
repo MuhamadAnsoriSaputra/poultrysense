@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private Button btnLogin;
     private com.google.android.material.button.MaterialButton btnGoogle;
-    private TextView tvDaftar;
+    private TextView tvDaftar, tvLupaPassword;
     private ImageView imgShowPassword;
     private FirebaseAuth mAuth;
     private GoogleSignInClient googleSignInClient;
@@ -46,10 +46,16 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnGoogle = findViewById(R.id.btnGoogleCustom);
         tvDaftar = findViewById(R.id.tvDaftar);
+        tvLupaPassword = findViewById(R.id.tvLupaPassword);
         imgShowPassword = findViewById(R.id.imgShowPasswordLogin);
 
         btnLogin.setOnClickListener(v -> loginUser());
         tvDaftar.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+        
+        tvLupaPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, LupaPasswordActivity.class);
+            startActivity(intent);
+        });
 
         imgShowPassword.setOnClickListener(v -> {
             isPasswordVisible = !isPasswordVisible;
