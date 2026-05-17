@@ -22,10 +22,14 @@ public class PusatBantuanActivity extends AppCompatActivity {
         CardView btnEmail = findViewById(R.id.btn_contact_email);
 
         btnWA.setOnClickListener(v -> {
-            String url = "https://api.whatsapp.com/send?phone=628123456789"; // Ganti dengan nomor asli
+            String url = "https://api.whatsapp.com/send?phone=6285750782957";
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
-            startActivity(intent);
+            try {
+                startActivity(intent);
+            } catch (Exception e) {
+                android.widget.Toast.makeText(this, "WhatsApp tidak terinstal di perangkat ini", android.widget.Toast.LENGTH_SHORT).show();
+            }
         });
 
         btnEmail.setOnClickListener(v -> {

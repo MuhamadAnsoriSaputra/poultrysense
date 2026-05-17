@@ -1,57 +1,131 @@
 package com.example.poultrysense.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.poultrysense.R;
-import com.example.poultrysense.utils.SessionManager;
+import com.example.poultrysense.adapters.HistoryAkunAdapter;
+import com.example.poultrysense.utils.HistoryAkunManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RiwayatAkunActivity extends AppCompatActivity {
 
-    private TextView txtLastLoginTime, txtLastLoginLocation, txtLastProfileUpdate;
     private ImageView btnBack;
-    private SessionManager sessionManager;
+    private TextView tabSemua, tabLogin, tabUbahProfil, txtEmpty;
+    private RecyclerView rvHistory;
+    private HistoryAkunAdapter adapter;
+    private List<HistoryAkunManager.HistoryItem> allHistoryList;
+    private String currentFilter = "semua"; // "semua", "login", "ubah_profil"
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riwayat_akun);
 
-        sessionManager = new SessionManager(this);
-        
         btnBack = findViewById(R.id.btn_back);
-        txtLastLoginTime = findViewById(R.id.txt_last_login_time);
-        txtLastLoginLocation = findViewById(R.id.txt_last_login_location);
-        txtLastProfileUpdate = findViewById(R.id.txt_last_profile_update);
+        tabSemua = findViewById(R.id.tab_semua);
+        tabLogin = findViewById(R.id.tab_login);
+        tabUbahProfil = findViewById(R.id.tab_ubah_profil);
+        txtEmpty = findViewById(R.id.txt_empty_history_akun);
+        rvHistory = findViewById(R.id.rv_history_akun);
+
+        rvHistory.setLayoutManager(new LinearLayoutManager(this));
 
         btnBack.setOnClickListener(v -> finish());
 
-        displayAccountHistory();
+        tabSemua.setOnClickListener(v -> setFilter("semua"));
+        tabLogin.setOnClickListener(v -> setFilter("login"));
+        tabUbahProfil.setOnClickListener(v -> setFilter("ubah_profil"));
+
+        loadHistoryData();
         setupBottomNavigation();
     }
 
-    private void displayAccountHistory() {
-        // Ambil data login dari SessionManager
-        long lastLoginTimestamp = sessionManager.getLastLoginTimestamp();
-        long oneMonthInMillis = 30L * 24 * 60 * 60 * 1000;
-        long currentTime = System.currentTimeMillis();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadHistoryData();
+    }
 
-        // Riwayat login hanya tampil jika kurang dari 1 bulan
-        if (currentTime - lastLoginTimestamp < oneMonthInMillis && lastLoginTimestamp != 0) {
-            txtLastLoginTime.setText(sessionManager.getLastLoginTime());
-            txtLastLoginLocation.setText(sessionManager.getLastLoginLocation());
+    private void loadHistoryData() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
+
+        allHistoryList = HistoryAkunManager.getHistory(this, emailKey);
+        applyFilter();
+    }
+
+    private void setFilter(String filter) {
+        currentFilter = filter;
+        updateTabStyles();
+        applyFilter();
+    }
+
+    private void updateTabStyles() {
+        tabSemua.setBackgroundResource(R.drawable.bg_tab_inactive);
+        tabSemua.setTextColor(getResources().getColor(R.color.text_gray));
+        tabSemua.setTypeface(null, android.graphics.Typeface.NORMAL);
+
+        tabLogin.setBackgroundResource(R.drawable.bg_tab_inactive);
+        tabLogin.setTextColor(getResources().getColor(R.color.text_gray));
+        tabLogin.setTypeface(null, android.graphics.Typeface.NORMAL);
+
+        tabUbahProfil.setBackgroundResource(R.drawable.bg_tab_inactive);
+        tabUbahProfil.setTextColor(getResources().getColor(R.color.text_gray));
+        tabUbahProfil.setTypeface(null, android.graphics.Typeface.NORMAL);
+
+        if ("semua".equals(currentFilter)) {
+            tabSemua.setBackgroundResource(R.drawable.bg_tab_active);
+            tabSemua.setTextColor(getResources().getColor(R.color.teal_primary));
+            tabSemua.setTypeface(null, android.graphics.Typeface.BOLD);
+        } else if ("login".equals(currentFilter)) {
+            tabLogin.setBackgroundResource(R.drawable.bg_tab_active);
+            tabLogin.setTextColor(getResources().getColor(R.color.teal_primary));
+            tabLogin.setTypeface(null, android.graphics.Typeface.BOLD);
+        } else if ("ubah_profil".equals(currentFilter)) {
+            tabUbahProfil.setBackgroundResource(R.drawable.bg_tab_active);
+            tabUbahProfil.setTextColor(getResources().getColor(R.color.teal_primary));
+            tabUbahProfil.setTypeface(null, android.graphics.Typeface.BOLD);
+        }
+    }
+
+    private void applyFilter() {
+        List<HistoryAkunManager.HistoryItem> filteredList = new ArrayList<>();
+        if ("semua".equals(currentFilter)) {
+            filteredList.addAll(allHistoryList);
         } else {
-            txtLastLoginTime.setText("Tidak ada riwayat (1 bulan terakhir)");
-            txtLastLoginLocation.setText("-");
+            for (HistoryAkunManager.HistoryItem item : allHistoryList) {
+                if (currentFilter.equals(item.type)) {
+                    filteredList.add(item);
+                }
+            }
         }
 
-        // Ambil data update profil dari SharedPreferences PROFILE_PREFS (Simpan Selamanya)
-        SharedPreferences profilePrefs = getSharedPreferences("PROFILE_PREFS", MODE_PRIVATE);
-        String lastUpdate = profilePrefs.getString("last_profile_update", "Belum pernah diubah");
-        txtLastProfileUpdate.setText(lastUpdate);
+        if (adapter == null) {
+            adapter = new HistoryAkunAdapter(filteredList);
+            rvHistory.setAdapter(adapter);
+        } else {
+            adapter.updateData(filteredList);
+        }
+
+        if (filteredList.isEmpty()) {
+            txtEmpty.setVisibility(View.VISIBLE);
+            rvHistory.setVisibility(View.GONE);
+        } else {
+            txtEmpty.setVisibility(View.GONE);
+            rvHistory.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupBottomNavigation() {

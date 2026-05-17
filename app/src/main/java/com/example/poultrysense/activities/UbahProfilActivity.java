@@ -82,26 +82,72 @@ public class UbahProfilActivity extends AppCompatActivity {
             pilihFotoLauncher.launch(new String[]{"image/*"});
         });
 
+        TextView btnHapusPP = findViewById(R.id.btn_hapus_pp);
+        if (btnHapusPP != null) {
+            btnHapusPP.setOnClickListener(v -> hapusFotoProfil());
+        }
+
         btnSimpanProfil.setOnClickListener(v -> {
             simpanPerubahanProfil();
         });
     }
 
+    private void hapusFotoProfil() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
+
+        selectedImageUri = null;
+        imgProfile.setImageResource(R.drawable.profil);
+
+        SharedPreferences.Editor editor = profilePrefs.edit();
+        editor.putString("profile_photo_uri_" + emailKey, "");
+        editor.apply();
+
+        if (user != null && user.getEmail() != null) {
+            com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+            java.util.List<com.example.poultrysense.utils.MultiAccountManager.SavedAccount> accs = mam.getSavedAccounts();
+            for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : accs) {
+                if (acc.email.equals(user.getEmail())) {
+                    acc.photoUri = "";
+                    mam.saveAccount(acc.email, acc.password, acc.name, acc.photoUri);
+                    break;
+                }
+            }
+        }
+
+        com.example.poultrysense.utils.HistoryAkunManager.addHistory(this, emailKey, "ubah_profil", "Foto Profil Dihapus", android.os.Build.MODEL, "Indonesia");
+        com.example.poultrysense.utils.NotificationAkunManager.addNotification(this, emailKey, "sistem", "Foto Profil Dihapus", "Foto profil Anda telah dikembalikan ke bawaan.");
+        Toast.makeText(this, "Foto profil berhasil dihapus", Toast.LENGTH_SHORT).show();
+    }
+
     private void tampilkanDataAwal() {
         FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
 
-        String namaLocal = profilePrefs.getString("profile_name", null);
+        String namaLocal = profilePrefs.getString("profile_name_" + emailKey, null);
 
         if (user != null) {
             String namaFirebase = user.getDisplayName();
             String email = user.getEmail();
 
-            if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
-                edtNamaProfil.setText(namaFirebase);
-            } else if (namaLocal != null && !namaLocal.trim().isEmpty()) {
+            String mamName = null;
+            if (email != null) {
+                com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+                for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : mam.getSavedAccounts()) {
+                    if (acc.email.equals(email)) {
+                        mamName = acc.name;
+                        break;
+                    }
+                }
+            }
+
+            if (namaLocal != null && !namaLocal.trim().isEmpty()) {
                 edtNamaProfil.setText(namaLocal);
+            } else if (mamName != null && !mamName.trim().isEmpty()) {
+                edtNamaProfil.setText(mamName);
+            } else if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
+                edtNamaProfil.setText(namaFirebase);
             } else {
-                // Fallback: prefix email
                 if (email != null && email.contains("@")) {
                     edtNamaProfil.setText(email.substring(0, email.indexOf('@')));
                 } else {
@@ -123,7 +169,21 @@ public class UbahProfilActivity extends AppCompatActivity {
     }
 
     private void tampilkanFotoProfil() {
-        String savedUri = profilePrefs.getString("profile_photo_uri", null);
+        FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
+
+        String savedUri = profilePrefs.getString("profile_photo_uri_" + emailKey, null);
+        if (savedUri == null || savedUri.isEmpty()) {
+            if (user != null && user.getEmail() != null) {
+                com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+                for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : mam.getSavedAccounts()) {
+                    if (acc.email.equals(user.getEmail())) {
+                        savedUri = acc.photoUri;
+                        break;
+                    }
+                }
+            }
+        }
 
         if (savedUri != null && !savedUri.isEmpty()) {
             try {
@@ -144,21 +204,21 @@ public class UbahProfilActivity extends AppCompatActivity {
             return;
         }
 
+        FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
+
         SharedPreferences.Editor editor = profilePrefs.edit();
-        editor.putString("profile_name", namaBaru);
+        editor.putString("profile_name_" + emailKey, namaBaru);
 
         if (selectedImageUri != null) {
-            editor.putString("profile_photo_uri", selectedImageUri.toString());
+            editor.putString("profile_photo_uri_" + emailKey, selectedImageUri.toString());
         }
 
-        // Simpan waktu update profil terakhir
         String lastUpdate = new SimpleDateFormat("dd MMMM yyyy - hh:mm a", Locale.getDefault()).format(new Date());
-        editor.putString("last_profile_update", lastUpdate);
+        editor.putString("last_profile_update_" + emailKey, lastUpdate);
 
         editor.apply();
 
-        // Update MultiAccountManager agar list akun ikut terupdate
-        FirebaseUser user = mAuth.getCurrentUser();
         if (user != null && user.getEmail() != null) {
             com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
             java.util.List<com.example.poultrysense.utils.MultiAccountManager.SavedAccount> accs = mam.getSavedAccounts();
@@ -173,6 +233,9 @@ public class UbahProfilActivity extends AppCompatActivity {
                 }
             }
         }
+
+        com.example.poultrysense.utils.HistoryAkunManager.addHistory(this, emailKey, "ubah_profil", "Profil Diperbarui (" + namaBaru + ")", android.os.Build.MODEL, "Indonesia");
+        com.example.poultrysense.utils.NotificationAkunManager.addNotification(this, emailKey, "sistem", "Profil Diperbarui", "Informasi profil Anda berhasil diperbarui menjadi " + namaBaru + ".");
 
         if (user != null) {
             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

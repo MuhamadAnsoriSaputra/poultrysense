@@ -399,23 +399,37 @@ public class DashboardActivity extends AppCompatActivity {
     private void tampilkanDataProfil() {
         android.content.SharedPreferences profilePrefs = getSharedPreferences("PROFILE_PREFS", MODE_PRIVATE);
         FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
 
-        // Tampilkan Nama
         String namaFirebase = (user != null) ? user.getDisplayName() : null;
-        String namaLocal = profilePrefs.getString("profile_name", null);
+        String namaLocal = profilePrefs.getString("profile_name_" + emailKey, null);
         String email = (user != null) ? user.getEmail() : null;
 
-        // Fallback: ambil bagian sebelum '@' dari email
         String emailPrefix = "User";
         if (email != null && email.contains("@")) {
             emailPrefix = email.substring(0, email.indexOf('@'));
         }
 
+        String mamName = null;
+        String mamPhoto = null;
+        if (email != null) {
+            com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+            for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : mam.getSavedAccounts()) {
+                if (acc.email.equals(email)) {
+                    mamName = acc.name;
+                    mamPhoto = acc.photoUri;
+                    break;
+                }
+            }
+        }
+
         String nama;
-        if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
-            nama = namaFirebase;
-        } else if (namaLocal != null && !namaLocal.trim().isEmpty()) {
+        if (namaLocal != null && !namaLocal.trim().isEmpty()) {
             nama = namaLocal;
+        } else if (mamName != null && !mamName.trim().isEmpty()) {
+            nama = mamName;
+        } else if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
+            nama = namaFirebase;
         } else {
             nama = emailPrefix;
         }
@@ -425,8 +439,11 @@ public class DashboardActivity extends AppCompatActivity {
             txtHiUser.setText("Hi " + nama + ",");
         }
 
-        // Tampilkan Foto
-        String savedUri = profilePrefs.getString("profile_photo_uri", null);
+        String savedUri = profilePrefs.getString("profile_photo_uri_" + emailKey, null);
+        if (savedUri == null || savedUri.isEmpty()) {
+            savedUri = mamPhoto;
+        }
+
         if (savedUri != null && !savedUri.isEmpty() && imgProfile != null) {
             try {
                 imgProfile.setImageURI(android.net.Uri.parse(savedUri));
@@ -437,17 +454,13 @@ public class DashboardActivity extends AppCompatActivity {
             imgProfile.setImageResource(R.drawable.profil);
         }
 
-        // Pastikan akun aktif selalu ada di MultiAccountManager
         if (user != null && user.getEmail() != null) {
-            com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(
-                    this);
-            java.util.List<com.example.poultrysense.utils.MultiAccountManager.SavedAccount> accs = mam
-                    .getSavedAccounts();
+            com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+            java.util.List<com.example.poultrysense.utils.MultiAccountManager.SavedAccount> accs = mam.getSavedAccounts();
 
             boolean found = false;
             for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : accs) {
                 if (acc.email.equals(user.getEmail())) {
-                    // Update nama & foto jika berubah
                     acc.name = nama;
                     acc.photoUri = savedUri != null ? savedUri : "";
                     mam.saveAccount(acc.email, acc.password, acc.name, acc.photoUri);
@@ -456,8 +469,6 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
 
-            // Jika belum ada (sesi lama sebelum fitur ini), tambahkan dengan password
-            // kosong
             if (!found) {
                 mam.saveAccount(user.getEmail(), "", nama, savedUri != null ? savedUri : "");
             }
@@ -529,6 +540,8 @@ public class DashboardActivity extends AppCompatActivity {
                     pd.dismiss();
                     if (task.isSuccessful()) {
                         sessionManager.createLoginSession(acc.email);
+                        com.example.poultrysense.utils.HistoryAkunManager.addHistory(this, acc.email, "login", "Beralih Akun Berhasil", android.os.Build.MODEL, "Indonesia");
+                        com.example.poultrysense.utils.NotificationAkunManager.addNotification(this, acc.email, "keamanan", "Beralih Akun Berhasil", "Sesi login dialihkan ke akun ini dari perangkat " + android.os.Build.MODEL + ".");
                         startActivity(new Intent(this, DashboardActivity.class));
                         finish();
                         overridePendingTransition(0, 0);

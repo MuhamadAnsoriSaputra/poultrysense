@@ -52,18 +52,31 @@ public class LihatProfilActivity extends AppCompatActivity {
 
     private void tampilkanDataUser() {
         FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
 
         if (user != null) {
             String namaFirebase = user.getDisplayName();
-            String namaLocal = profilePrefs.getString("profile_name", null);
+            String namaLocal = profilePrefs.getString("profile_name_" + emailKey, null);
             String email = user.getEmail();
 
-            String nama;
+            String mamName = null;
+            if (email != null) {
+                com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+                for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : mam.getSavedAccounts()) {
+                    if (acc.email.equals(email)) {
+                        mamName = acc.name;
+                        break;
+                    }
+                }
+            }
 
-            if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
-                nama = namaFirebase;
-            } else if (namaLocal != null && !namaLocal.trim().isEmpty()) {
+            String nama;
+            if (namaLocal != null && !namaLocal.trim().isEmpty()) {
                 nama = namaLocal;
+            } else if (mamName != null && !mamName.trim().isEmpty()) {
+                nama = mamName;
+            } else if (namaFirebase != null && !namaFirebase.trim().isEmpty()) {
+                nama = namaFirebase;
             } else {
                 nama = "User PoultrySense";
             }
@@ -99,7 +112,21 @@ public class LihatProfilActivity extends AppCompatActivity {
     }
 
     private void tampilkanFotoProfil() {
-        String savedUri = profilePrefs.getString("profile_photo_uri", null);
+        FirebaseUser user = mAuth.getCurrentUser();
+        String emailKey = (user != null && user.getEmail() != null) ? user.getEmail() : "default";
+
+        String savedUri = profilePrefs.getString("profile_photo_uri_" + emailKey, null);
+        if (savedUri == null || savedUri.isEmpty()) {
+            if (user != null && user.getEmail() != null) {
+                com.example.poultrysense.utils.MultiAccountManager mam = new com.example.poultrysense.utils.MultiAccountManager(this);
+                for (com.example.poultrysense.utils.MultiAccountManager.SavedAccount acc : mam.getSavedAccounts()) {
+                    if (acc.email.equals(user.getEmail())) {
+                        savedUri = acc.photoUri;
+                        break;
+                    }
+                }
+            }
+        }
 
         if (savedUri != null && !savedUri.isEmpty()) {
             try {

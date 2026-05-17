@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#1E1E1E</color>
+    <color name="bg_light_gray">#121212</color>
+    <color name="teal_primary">#14B8A6</color>
+    <color name="teal_soft_bg">#1A332E</color>
+    <color name="teal_soft_card">#1B3B3A</color>
+    <color name="text_black">#F9FAFB</color>
+    <color name="text_gray">#9CA3AF</color>
+    <color name="border_gray">#374151</color>
+</resources>

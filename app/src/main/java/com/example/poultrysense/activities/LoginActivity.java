@@ -122,6 +122,9 @@ public class LoginActivity extends AppCompatActivity {
                 String photoUri = profilePrefs.getString("profile_photo_uri", "");
                 mam.saveAccount(email, pass, name, photoUri);
 
+                com.example.poultrysense.utils.HistoryAkunManager.addHistory(this, email, "login", "Login Berhasil", android.os.Build.MODEL, "Indonesia");
+                com.example.poultrysense.utils.NotificationAkunManager.addNotification(this, email, "keamanan", "Login Berhasil", "Akun Anda baru saja login dari perangkat " + android.os.Build.MODEL + " di Indonesia.");
+
                 startActivity(new Intent(this, DashboardActivity.class));
                 finish();
             } else {
@@ -167,6 +170,9 @@ public class LoginActivity extends AppCompatActivity {
                     // Simpan ke MultiAccountManager (Password dikosongkan untuk Google Auth)
                     MultiAccountManager mam = new MultiAccountManager(this);
                     mam.saveAccount(user.getEmail(), "", name, photoUri);
+
+                    com.example.poultrysense.utils.HistoryAkunManager.addHistory(this, user.getEmail(), "login", "Login Berhasil (Google)", android.os.Build.MODEL, "Indonesia");
+                    com.example.poultrysense.utils.NotificationAkunManager.addNotification(this, user.getEmail(), "keamanan", "Login Berhasil (Google)", "Akun Anda baru saja login dari perangkat " + android.os.Build.MODEL + " di Indonesia.");
                     
                     startActivity(new Intent(this, DashboardActivity.class));
                     finish();
