@@ -47,5 +47,14 @@
             app:thumbTint="@color/switch_thumb_selector"
             app:trackTint="@color/switch_track_selector" />
 
+        <ImageView
+            android:id="@+id/img_select_jadwal"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_circle_unchecked"
+            android:visibility="gone" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -21,14 +21,8 @@
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:paddingHorizontal="0dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/sementara" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -38,13 +32,6 @@
                     android:textColor="#26A69A"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/plus" />
             </RelativeLayout>
 
             <LinearLayout
@@ -97,10 +84,15 @@
                             android:textStyle="bold" />
 
                         <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
+                            android:id="@+id/btn_edit_profil_icon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_marginStart="8dp"
-                            android:src="@drawable/sementara" />
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_ubah_profil"
+                            app:tint="#26A69A" />
                     </LinearLayout>
 
                     <TextView
@@ -364,7 +356,7 @@
             android:layout_marginBottom="25dp"
             android:clickable="true"
             android:focusable="true"
-            app:cardBackgroundColor="@color/teal_primary"
+            app:cardBackgroundColor="@color/text_gray"
             app:cardCornerRadius="30dp"
             app:cardElevation="12dp"
             app:layout_constraintBottom_toBottomOf="parent"

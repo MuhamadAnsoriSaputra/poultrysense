@@ -12,6 +12,11 @@ import androidx.cardview.widget.CardView;
 import com.example.poultrysense.R;
 import com.example.poultrysense.models.HistoryPakan;
 import com.example.poultrysense.utils.HistoryManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -25,6 +30,8 @@ public class BeriPakanActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private boolean isFeeding = false;
     private HistoryManager historyManager;
+    private DatabaseReference mDatabase;
+    private ValueEventListener feedingListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,7 @@ public class BeriPakanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_beri_pakan);
 
         historyManager = new HistoryManager(this);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         btnBack = findViewById(R.id.btn_back_pakan);
         btnActionPakan = findViewById(R.id.btn_action_pakan);
@@ -52,15 +60,57 @@ public class BeriPakanActivity extends AppCompatActivity {
         btnActionPakan.setEnabled(false);
         btnActionPakan.setAlpha(0.7f);
         
-        txtStatus.setText("Sedang Mengeluarkan Pakan...");
+        txtStatus.setText("Mengirim perintah ke alat...");
         txtStatus.setTextColor(android.graphics.Color.parseColor("#F59E0B")); // Orange
         progressBar.setVisibility(View.VISIBLE);
 
-        // Simulasi pengeluaran pakan selama 3 detik
+        // 1. Set /beri_pakan ke true di Firebase
+        mDatabase.child("beri_pakan").setValue(true).addOnSuccessListener(aVoid -> {
+            txtStatus.setText("Alat sedang mengeluarkan pakan...");
+            listenToFeedingCompletion();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Gagal terhubung ke alat: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            // Fallback simulasi jika gagal koneksi
+            new Handler().postDelayed(() -> {
+                saveToHistory();
+                stopFeeding();
+            }, 3000);
+        });
+
+        // 2. Fallback cerdas: Jika ESP32 belum dirakit/mati, selesaikan otomatis setelah 8 detik
         new Handler().postDelayed(() -> {
-            saveToHistory();
-            stopFeeding();
-        }, 3000);
+            if (isFeeding) {
+                if (feedingListener != null) {
+                    mDatabase.child("beri_pakan").removeEventListener(feedingListener);
+                }
+                // Reset nilai di Firebase agar tidak menggantung
+                mDatabase.child("beri_pakan").setValue(false);
+                saveToHistory();
+                stopFeeding();
+            }
+        }, 8000);
+    }
+
+    private void listenToFeedingCompletion() {
+        feedingListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Boolean status = dataSnapshot.getValue(Boolean.class);
+                    // Jika alat ESP32 sudah selesai dan mengubah status menjadi false
+                    if (status != null && !status && isFeeding) {
+                        mDatabase.child("beri_pakan").removeEventListener(this);
+                        saveToHistory();
+                        stopFeeding();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mDatabase.child("beri_pakan").addValueEventListener(feedingListener);
     }
 
     private void saveToHistory() {
@@ -92,5 +142,13 @@ public class BeriPakanActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             if (!isFeeding) txtStatus.setText("Sistem Siap");
         }, 2000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDatabase != null && feedingListener != null) {
+            mDatabase.child("beri_pakan").removeEventListener(feedingListener);
+        }
     }
 }

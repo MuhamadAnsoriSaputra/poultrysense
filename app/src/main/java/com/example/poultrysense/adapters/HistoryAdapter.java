@@ -15,14 +15,25 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     private List<HistoryPakan> historyList;
     private OnHistoryClickListener listener;
+    private boolean selectionMode = false;
 
     public interface OnHistoryClickListener {
-        void onDeleteClick(HistoryPakan history);
+        void onLongClick(HistoryPakan history, int position);
+        void onItemClick(HistoryPakan history, int position);
     }
 
     public HistoryAdapter(List<HistoryPakan> historyList, OnHistoryClickListener listener) {
         this.historyList = historyList;
         this.listener = listener;
+    }
+
+    public void setSelectionMode(boolean mode) {
+        this.selectionMode = mode;
+        notifyDataSetChanged();
+    }
+
+    public boolean isSelectionMode() {
+        return selectionMode;
     }
 
     @NonNull
@@ -39,9 +50,23 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.txtTipe.setText(history.getTipe() + " - " + history.getJumlahGram() + "g");
         holder.txtTime.setText(history.getWaktu());
 
-        holder.btnDelete.setOnClickListener(v -> {
+        if (selectionMode) {
+            holder.imgSelect.setVisibility(View.VISIBLE);
+            holder.imgSelect.setImageResource(history.isSelected() ? R.drawable.ic_circle_checked : R.drawable.ic_circle_unchecked);
+        } else {
+            holder.imgSelect.setVisibility(View.GONE);
+        }
+
+        holder.itemView.setOnLongClickListener(v -> {
             if (listener != null) {
-                listener.onDeleteClick(history);
+                listener.onLongClick(history, position);
+            }
+            return true;
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(history, position);
             }
         });
     }
@@ -58,14 +83,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle, txtTipe, txtTime;
-        ImageView btnDelete;
+        ImageView imgSelect;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txt_title_history);
             txtTipe = itemView.findViewById(R.id.txt_tipe_history);
             txtTime = itemView.findViewById(R.id.txt_time_history);
-            btnDelete = itemView.findViewById(R.id.btn_delete_history);
+            imgSelect = itemView.findViewById(R.id.img_select_history);
         }
     }
 }

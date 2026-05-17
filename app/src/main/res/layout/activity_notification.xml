@@ -17,56 +17,152 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:text="Notifikasi Terbaru"
-                android:textColor="#2CC1A7"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="20dp">
 
-            <LinearLayout
+                <!-- Top Bar Normal -->
+                <RelativeLayout
+                    android:id="@+id/layout_top_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Notifikasi"
+                        android:textColor="#2CC1A7"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <!-- Top Bar Selection -->
+                <RelativeLayout
+                    android:id="@+id/layout_top_selection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+                    <ImageView
+                        android:id="@+id/btn_cancel_select"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_close"
+                        app:tint="@color/text_black" />
+
+                    <TextView
+                        android:id="@+id/txt_select_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="1 item terpilih"
+                        android:textColor="@color/text_black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/btn_select_all_top"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_select_all_lines"
+                        app:tint="@color/text_black" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:gravity="center"
+                android:scrollbars="none"
+                android:paddingHorizontal="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tab_semua"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_active"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Semua"
+                        android:textColor="#2CC1A7"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tab_pakan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Pakan"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tab_peringatan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Peringatan"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tab_laporan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Laporan"
+                        android:textColor="#8E8E93"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
                 android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/btn_refresh_notif"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_bulat_putih"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_refresh_arrows"
+                    app:tint="#8E8E93" />
                 <TextView
-                    android:id="@+id/tab_semua"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/bg_tab_active"
-                    android:gravity="center"
-                    android:text="Semua"
-                    android:textColor="#2CC1A7"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tab_sistem"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/bg_tab_inactive"
-                    android:gravity="center"
-                    android:text="Sistem"
-                    android:textColor="#8E8E93" />
-
-                <TextView
-                    android:id="@+id/tab_promosi"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_tab_inactive"
-                    android:gravity="center"
-                    android:text="Promosi"
-                    android:textColor="#8E8E93" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Perbarui Data"
+                    android:textColor="#8E8E93"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,7 +253,7 @@
             android:layout_marginBottom="25dp"
             android:clickable="true"
             android:focusable="true"
-            app:cardBackgroundColor="@color/teal_primary"
+            app:cardBackgroundColor="@color/text_gray"
             app:cardCornerRadius="30dp"
             app:cardElevation="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -173,5 +269,35 @@
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Bottom Selection Bar -->
+    <LinearLayout
+        android:id="@+id/layout_selection_bar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_hapus_terpilih"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/sampah"
+            app:tint="#333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Hapus"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

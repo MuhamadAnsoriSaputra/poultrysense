@@ -187,15 +187,25 @@
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Status Pakan" android:textStyle="bold" android:textSize="18sp" android:textColor="@color/text_black"/>
 
                     <FrameLayout android:layout_width="180dp" android:layout_height="180dp" android:layout_gravity="center" android:layout_margin="15dp">
-                        <ProgressBar android:layout_width="match_parent" android:layout_height="match_parent" android:indeterminate="false" android:progress="75" style="?android:attr/progressBarStyleHorizontal" android:progressDrawable="@drawable/custom_progress_ring" />
+                        <ProgressBar android:id="@+id/progress_ring_pakan" android:layout_width="match_parent" android:layout_height="match_parent" android:indeterminate="false" android:progress="0" style="?android:attr/progressBarStyleHorizontal" android:progressDrawable="@drawable/custom_progress_ring" />
                         <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="75%" android:textSize="32sp" android:textStyle="bold" android:textColor="@color/text_black"/>
+                            <TextView android:id="@+id/txt_persentase_pakan" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--%" android:textSize="32sp" android:textStyle="bold" android:textColor="@color/text_black"/>
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sisa Pakan" android:textSize="14sp" android:textColor="@color/text_black"/>
                         </LinearLayout>
                     </FrameLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Konsumsi Mingguan" android:textStyle="bold" android:layout_marginBottom="10dp"/>
-                    <ImageView android:layout_width="match_parent" android:layout_height="120dp" android:scaleType="fitXY"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Frekuensi Beri Pakan (Minggu Ini)" android:textStyle="bold" android:textSize="14sp" android:textColor="@color/text_black" android:layout_marginBottom="15dp"/>
+                    
+                    <LinearLayout
+                        android:id="@+id/chart_mingguan_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:orientation="horizontal"
+                        android:weightSum="7"
+                        android:gravity="bottom|center_horizontal"
+                        android:baselineAligned="false">
+                        <!-- Nanti diisi secara dinamis dari DashboardActivity.java -->
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -356,7 +366,6 @@
     </androidx.core.widget.NestedScrollView>
 
     <!-- Bottom Navigation Bar -->
-    <!-- Bottom Navigation Bar -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nav_bottom_bar"
         android:layout_width="match_parent"
@@ -435,7 +444,7 @@
             android:layout_marginBottom="25dp"
             android:clickable="true"
             android:focusable="true"
-            app:cardBackgroundColor="@color/teal_primary"
+            app:cardBackgroundColor="@color/text_gray"
             app:cardCornerRadius="30dp"
             app:cardElevation="12dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -54,6 +54,13 @@ public class AkunActivity extends AppCompatActivity {
 
         menuLihatProfil.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, LihatProfilActivity.class)));
         menuUbahProfil.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, UbahProfilActivity.class)));
+        ImageView btnEditProfilIcon = findViewById(R.id.btn_edit_profil_icon);
+        if (btnEditProfilIcon != null) {
+            btnEditProfilIcon.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, UbahProfilActivity.class)));
+        }
+        if (imgProfileAkun != null) {
+            imgProfileAkun.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, UbahProfilActivity.class)));
+        }
         menuRiwayatAkun.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, RiwayatAkunActivity.class)));
         menuNotifikasi.setOnClickListener(v -> startActivity(new Intent(AkunActivity.this, NotificationActivity.class)));
         

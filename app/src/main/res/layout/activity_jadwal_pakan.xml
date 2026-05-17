@@ -13,28 +13,77 @@
         android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btn_back_jadwal"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="12dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            app:tint="@color/text_black" />
+        <!-- Top Bar Normal -->
+        <RelativeLayout
+            android:id="@+id/layout_top_normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/btn_back_jadwal"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="12dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_back"
+                app:tint="@color/text_black" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Jadwal Pakan"
-            android:textColor="@color/text_black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Jadwal Pakan"
+                android:textColor="@color/text_black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <!-- Top Bar Selection (Sesuai Screenshot) -->
+        <RelativeLayout
+            android:id="@+id/layout_top_selection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/btn_cancel_select"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="12dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_close"
+                app:tint="@color/text_black" />
+
+            <TextView
+                android:id="@+id/txt_select_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="1 item terpilih"
+                android:textColor="@color/text_black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/btn_select_all_top"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_select_all_lines"
+                app:tint="@color/text_black" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -58,5 +107,35 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/teal_primary" />
+
+    <!-- Bottom Selection Bar (Sesuai Screenshot: Tong Sampah di Tengah dengan Teks Hapus) -->
+    <LinearLayout
+        android:id="@+id/layout_selection_bar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_hapus_terpilih"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/sampah"
+            app:tint="#333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Hapus"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

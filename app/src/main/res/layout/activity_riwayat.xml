@@ -18,15 +18,65 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:text="Riwayat Pemberian Pakan"
-                android:textColor="@color/teal_primary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="20dp">
+
+                <!-- Top Bar Normal -->
+                <RelativeLayout
+                    android:id="@+id/layout_top_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Riwayat Pemberian Pakan"
+                        android:textColor="@color/teal_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <!-- Top Bar Selection -->
+                <RelativeLayout
+                    android:id="@+id/layout_top_selection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+                    <ImageView
+                        android:id="@+id/btn_cancel_select"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_close"
+                        app:tint="@color/text_black" />
+
+                    <TextView
+                        android:id="@+id/txt_select_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="1 item terpilih"
+                        android:textColor="@color/text_black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/btn_select_all_top"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_select_all_lines"
+                        app:tint="@color/text_black" />
+                </RelativeLayout>
+            </RelativeLayout>
 
             <!-- Ringkasan Mingguan -->
             <androidx.cardview.widget.CardView
@@ -47,7 +97,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Penggunaan Pakan Minggu Ini"
+                        android:text="Penggunaan Pakan"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:alpha="0.9" />
@@ -76,101 +126,124 @@
                             android:text="kg"
                             android:textColor="@color/white"
                             android:textSize="16sp" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/txt_persen_pakan_minggu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:text="0%"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Dari kapasitas stok 50 kg"
-                        android:textColor="@color/white"
-                        android:textSize="11sp"
-                        android:alpha="0.8" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Filter Bulan -->
+            <!-- Filter Tanggal/Bulan/Tahun Kreatif -->
             <LinearLayout
+                android:id="@+id/container_filter_waktu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="15dp"
                 android:background="@drawable/bg_edittext_simple"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:paddingHorizontal="12dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginStart="10dp"
                     android:src="@drawable/ic_riwayat"
                     app:tint="@color/teal_primary" />
 
-                <Spinner
-                    android:id="@+id/spinner_bulan"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent" />
-            </LinearLayout>
-
-            <!-- Tab Filter Tipe -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
                 <TextView
-                    android:id="@+id/tab_semua"
+                    android:id="@+id/txt_filter_waktu"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/bg_tab_active"
-                    android:gravity="center"
-                    android:text="Semua"
+                    android:layout_marginStart="10dp"
+                    android:text="Semua Waktu"
                     android:textColor="@color/teal_primary"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tab_manual"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/bg_tab_inactive"
-                    android:gravity="center"
-                    android:text="Manual"
-                    android:textColor="@color/text_gray" />
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_arrow_down_small"
+                    app:tint="@color/teal_primary" />
+            </LinearLayout>
 
+            <!-- Tab Filter Tipe (Pill Compact) -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:scrollbars="none"
+                android:paddingHorizontal="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tab_semua"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_active"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Semua"
+                        android:textColor="@color/teal_primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tab_manual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Manual"
+                        android:textColor="@color/text_gray"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tab_otomatis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Otomatis"
+                        android:textColor="@color/text_gray"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/btn_refresh_riwayat"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_bulat_putih"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_refresh_arrows"
+                    app:tint="#8E8E93" />
                 <TextView
-                    android:id="@+id/tab_otomatis"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_tab_inactive"
-                    android:gravity="center"
-                    android:text="Otomatis"
-                    android:textColor="@color/text_gray" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Perbarui Data"
+                    android:textColor="#8E8E93"
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <!-- List Riwayat -->
@@ -272,7 +345,7 @@
             android:layout_marginBottom="25dp"
             android:clickable="true"
             android:focusable="true"
-            app:cardBackgroundColor="@color/teal_primary"
+            app:cardBackgroundColor="@color/text_gray"
             app:cardCornerRadius="30dp"
             app:cardElevation="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -288,5 +361,35 @@
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Bottom Selection Bar -->
+    <LinearLayout
+        android:id="@+id/layout_selection_bar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_hapus_terpilih"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/sampah"
+            app:tint="#333333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Hapus"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

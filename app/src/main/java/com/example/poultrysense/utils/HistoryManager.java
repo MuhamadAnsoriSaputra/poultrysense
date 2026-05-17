@@ -36,7 +36,8 @@ public class HistoryManager {
                         obj.getString("tipe"),
                         obj.getInt("jumlahGram"),
                         obj.getString("waktu"),
-                        obj.getString("bulan")
+                        obj.getString("bulan"),
+                        obj.optBoolean("hidden", false)
                 ));
             }
         } catch (JSONException e) {
@@ -76,6 +77,17 @@ public class HistoryManager {
         saveList(list);
     }
 
+    public void hideHistory(String id) {
+        List<HistoryPakan> list = getFullHistory();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId().equals(id)) {
+                list.get(i).setHidden(true);
+                break;
+            }
+        }
+        saveList(list);
+    }
+
     private void saveList(List<HistoryPakan> list) {
         JSONArray array = new JSONArray();
         try {
@@ -86,6 +98,7 @@ public class HistoryManager {
                 obj.put("jumlahGram", h.getJumlahGram());
                 obj.put("waktu", h.getWaktu());
                 obj.put("bulan", h.getBulan());
+                obj.put("hidden", h.isHidden());
                 array.put(obj);
             }
         } catch (JSONException e) {
