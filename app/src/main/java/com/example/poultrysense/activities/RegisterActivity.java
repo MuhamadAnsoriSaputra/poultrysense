@@ -81,8 +81,12 @@ public class RegisterActivity extends AppCompatActivity {
             etPassword.setError("Password wajib diisi");
             return;
         }
-        if (pass.length() < 6) {
-            etPassword.setError("Password minimal 6 karakter");
+        if (pass.length() < 8) {
+            etPassword.setError("Password minimal 8 karakter");
+            return;
+        }
+        if (!pass.matches(".*[a-zA-Z].*") || !pass.matches(".*\\d.*") || !pass.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+            etPassword.setError("Password harus mengandung kombinasi huruf, angka, dan simbol (seperti _ , - , @, dll)");
             return;
         }
         if (!pass.equals(confirmPass)) {
